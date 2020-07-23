@@ -1,6 +1,8 @@
 # How to add JWT Authentication to a CodeIgniter 3 REST API
 
-- *Resource* : http://developer-city.com/jwt
+- *Resource* : Tutorials (http://developer-city.com/jwt)
+- *Resource* : Verify Signature (https://jwt.io/)
+- *Files* : `Libraries/CreatorJwt.php` & `libraries/JWT.php`
 - `welcome/LoginToken`
 - Response
 

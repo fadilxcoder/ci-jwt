@@ -22,3 +22,10 @@
     },
     "id": 91
 } 
+
+-------
+
+# JWT with Mobile App
+
+- Send data to server to create JWT token : `<url-for-project-files>/get-token`
+- Send data to server with Authorization to decode JWT token : `<url-for-project-files>/verify-token`

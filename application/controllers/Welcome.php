@@ -45,8 +45,7 @@ class Welcome extends CI_Controller {
     public function verifyToken()
     {
         $received_Token = $this->input->request_headers('Authorization');
-        print_r($received_Token);
-    	$header = $received_Token['authorization'];
+    	$header = $received_Token['authorization'] ?? $received_Token['Authorization'];
     	$auth = explode(' ', $header);
         $type = $auth[0];
         $token = $auth[1];

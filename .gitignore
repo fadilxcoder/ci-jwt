@@ -32,3 +32,5 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 
 .c9/
 .editorconfig
+
+application/vendor/*

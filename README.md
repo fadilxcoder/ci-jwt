@@ -32,3 +32,12 @@
 
 - Send data to server to create JWT token : `<url-for-project-files>/get-token`
 - Send data to server with Authorization to decode JWT token : `<url-for-project-files>/verify-token`
+
+----
+
+### Using Public / Private key
+
+- Generate a pair of keys here : http://travistidwell.com/jsencrypt/demo/ - **GUI Version**
+- Use command (http://travistidwell.com/jsencrypt/)
+- cmd : `openssl genrsa -out private.pem 1024` where *private.pem* is the private key file name
+- cmd : `openssl rsa -pubout -in private.pem -out public.pem` get public key from private key

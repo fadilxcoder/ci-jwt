@@ -42,7 +42,8 @@ class Welcome extends CI_Controller {
             return;
         }
 
-        var_dump(strcmp($this->publicKey, $publicKey));
+        var_dump(mb_strlen($this->publicKey, 'UTF-8'));
+        var_dump(mb_strlen($publicKey, 'UTF-8'));
         die;
         
         if ($this->publicKey == $publicKey) {

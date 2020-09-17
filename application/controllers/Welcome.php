@@ -41,9 +41,9 @@ class Welcome extends CI_Controller {
 
             return;
         }
-
-        var_dump(strlen(mb_strlen($this->publicKey)));
-        var_dump(strlen(mb_strlen($publicKey)));
+        // $mb_publicKey = str_replace('–', '-', )
+        var_dump(mb_strlen($this->publicKey));
+        var_dump(mb_strlen($publicKey));
         
         if ($this->publicKey == $publicKey) {
             echo json_encode([

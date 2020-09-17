@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/ci-jwt-api/';
-// $config['base_url'] = 'https://gfx-jwt-api.herokuapp.com/';
+// $config['base_url'] = 'http://localhost/ci-jwt-api/';
+$config['base_url'] = 'https://gfx-jwt-api.herokuapp.com/';
 
 /*
 |--------------------------------------------------------------------------

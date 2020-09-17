@@ -1,9 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-// require APPPATH . '/libraries/CreatorJwt.php';
-
 use \Firebase\JWT\JWT;
-
 
 class Welcome extends CI_Controller {
 
@@ -31,7 +28,7 @@ class Welcome extends CI_Controller {
         }
     }
 
-
+    # Verify CLIENT KEY and send response identifier
     public function index()
     {
         $publicKey = $this->input->post('PUBLIC_KEY');
@@ -40,8 +37,9 @@ class Welcome extends CI_Controller {
             // $this->_404();
             echo json_encode([
                 'HTTP' => '404',
-            ])
-            ;
+            ]);
+
+            return;
         }
         
         if ($this->publicKey == $publicKey) {
@@ -56,6 +54,7 @@ class Welcome extends CI_Controller {
         
     }
 
+    # Verify CLIENT KEY and send token
     public function generateToken()
     {
         if ($this->_isAuthorized()) :
@@ -73,7 +72,7 @@ class Welcome extends CI_Controller {
         endif;
 	}
      
-    # GET Request with Authorization header
+    # Verify CLIENT KEY and decode token
     public function verifyToken()
     {
         if ($this->_isAuthorized()) :
@@ -83,6 +82,9 @@ class Welcome extends CI_Controller {
             $type = $auth[0];
             $token = $auth[1];
             
+            /* 
+            * Code use to detect Algorithm used
+            */
             // $jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkZXYiOiJmYWRpbEB4Y29kZXIuZHZscHIiLCJ0aW1lU3RhbXAiOiIyMDIwLTA5LTEzIDAyOjMzOjU5In0.HV5wKLMK7elWLMPugD_SGU1hSLFDoICSMGpjMx2gpeb2E5_E6OWR1NAHMvdaaPLFBWK7nxfZSkfjJWglvJ6BGgi8B6kyx9GL0Db5R1zarMSlePbR1LemyTw1MDcT3WpUKSnf9c5CiOryARJQzoVL-4fKHTTBIHyiY4JX5688nmI';
             // $tks = explode('.', $jwt);       
             // list($headb64, $bodyb64, $cryptob64) = $tks;
@@ -110,11 +112,12 @@ class Welcome extends CI_Controller {
         endif;
     }
     
+    # Check CLIENT KEY response identifier
     private function _isAuthorized()
     {
         $AUTH = $this->input->post('AUTHORIZATION_GRANT');
         
-        if ($AUTH == self::DISALLOW) {
+        if (null == $AUTH || $AUTH == self::DISALLOW) {
             echo json_encode([
                 'AUTHORIZATION_GRANT' => self::DISALLOW,
             ]);

@@ -47,12 +47,13 @@ class Welcome extends CI_Controller {
 
         $this->publicKey = str_replace('-----BEGIN PUBLIC KEY-----', '', $this->publicKey);
         $this->publicKey = str_replace('-----END PUBLIC KEY-----', '', $this->publicKey);
-        var_dump($this->publicKey);
+        // var_dump($this->publicKey);
 
         $publicKey = str_replace('-----BEGIN PUBLIC KEY-----', '', $publicKey);
         $publicKey = str_replace('-----END PUBLIC KEY-----', '', $publicKey);
-        var_dump($publicKey);
-        die;
+        // var_dump($publicKey);
+
+        echo strcmp($this->publicKey, $publicKey);
         
         if ($this->publicKey == $publicKey) {
             echo json_encode([

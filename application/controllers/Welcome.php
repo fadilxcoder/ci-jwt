@@ -45,15 +45,19 @@ class Welcome extends CI_Controller {
         // var_dump(($this->publicKey));
         // var_dump(($publicKey));
 
-        $this->publicKey = str_replace('-----BEGIN PUBLIC KEY-----', '', $this->publicKey);
-        $this->publicKey = str_replace('-----END PUBLIC KEY-----', '', $this->publicKey);
-        var_dump($this->publicKey);
+        // $this->publicKey = str_replace('-----BEGIN PUBLIC KEY-----', '', $this->publicKey);
+        // $this->publicKey = str_replace('-----END PUBLIC KEY-----', '', $this->publicKey);
+        // var_dump($this->publicKey);
 
-        $publicKey = str_replace('-----BEGIN PUBLIC KEY-----', '', $publicKey);
-        $publicKey = str_replace('-----END PUBLIC KEY-----', '', $publicKey);
-        var_dump($publicKey);
+        // $publicKey = str_replace('-----BEGIN PUBLIC KEY-----', '', $publicKey);
+        // $publicKey = str_replace('-----END PUBLIC KEY-----', '', $publicKey);
+        // var_dump($publicKey);
 
-        var_dump(strcmp($this->publicKey, $publicKey));
+        // var_dump(strcmp($this->publicKey, $publicKey));
+
+        $coll = collator_create( 'en_US' );
+        $res  = collator_compare( $coll, $this->publicKey, $publicKey );
+        var_dump($res);
         
         if ($this->publicKey == $publicKey) {
             echo json_encode([

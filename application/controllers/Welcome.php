@@ -61,13 +61,13 @@ class Welcome extends CI_Controller {
             # Data to be encoded as JWT signature
             $tokenData['dev'] = 'fadil@xcoder.dvlpr';
             $tokenData['timeStamp'] = Date('Y-m-d h:i:s');
-            $tokenData['var'] = $this->input->get('var');
+            $tokenData['var'] = $this->input->post('var');
                 
             $jwtToken = JWT::encode($tokenData, $this->privateKey, 'RS256');
                 
             echo json_encode([
                 'Token' => $jwtToken,
-                'serverResp' =>  $this->input->get('var'),
+                'serverResp' =>  $this->input->post('var'),
             ]);
         endif;
 	}

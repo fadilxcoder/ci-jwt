@@ -44,6 +44,8 @@ class Welcome extends CI_Controller {
 
         var_dump(($this->publicKey));
         var_dump(($publicKey));
+
+        if (strcmp($publicKey, $this->publicKey)===0) { echo "YES"; }
         
         
         if ($this->publicKey == $publicKey) {

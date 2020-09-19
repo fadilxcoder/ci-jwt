@@ -26,3 +26,7 @@
 - Return Response if CLIENT is ALLOW or not.
 - If CLIENT is ALLOW, send data to server to create JWT token : `<url-for-project-files>/get-token`
 - If CLIENT is ALLOW, send JWT token to server to verify and decode JWT token : `<url-for-project-files>/verify-token`
+
+# Heroku Deploy
+
+- Change CI *composer - vendor* (`vendor/autoload.php`) location

@@ -53,11 +53,8 @@ class Welcome extends CI_Controller {
         // $publicKey = str_replace('-----END PUBLIC KEY-----', '', $publicKey);
         // var_dump($publicKey);
 
-        // var_dump(strcmp($this->publicKey, $publicKey));
-
-        
-        $res  = Collator::compare($this->publicKey, $publicKey );
-        var_dump($res);
+        var_dump(strcmp($this->publicKey, $publicKey));
+        die;
         
         if ($this->publicKey == $publicKey) {
             echo json_encode([

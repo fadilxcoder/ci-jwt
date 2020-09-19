@@ -55,8 +55,8 @@ class Welcome extends CI_Controller {
 
         // var_dump(strcmp($this->publicKey, $publicKey));
 
-        $coll = collator_create( 'en_US' );
-        $res  = collator_compare( $coll, $this->publicKey, $publicKey );
+        
+        $res  = Collator::compare($this->publicKey, $publicKey );
         var_dump($res);
         
         if ($this->publicKey == $publicKey) {

@@ -50,8 +50,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'welcome';
+
+# Static app endpoints
 $route['index'] = 'welcome/index';
 $route['get-token'] = 'welcome/generateToken';
 $route['verify-token'] = 'welcome/verifyToken';
+
+# Desktop app endpoint
+$route['api/index'] = 'api/index';
+$route['api/request-jwt'] = 'api/requestJwt';
+$route['api/send-jwt-for-verification'] = 'api/decodeJwt';
+$route['api/api-bearer-verification'] = 'api/apiQueryVerifier';
+
 $route['404_override'] = 'welcome/_404';
 $route['translate_uri_dashes'] = FALSE;

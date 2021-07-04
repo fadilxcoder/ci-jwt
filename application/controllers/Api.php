@@ -138,4 +138,41 @@ class Api extends CI_Controller {
             echo json_encode(array( "status" => false, "message" => $e->getMessage()));
         }
     }
+
+    public function usersLising()
+    {
+        $this->load->database();
+
+        if(isset($_POST['users']))
+        {
+            $this->db->truncate('vip_list');
+
+            foreach($_POST['users'] as $users)
+            {
+                $arr = [
+                    'name' => $users[0],
+                    'surname' => $users[1],
+                    'email' => $users[2],
+                ];
+                $this->db->insert('vip_list', $arr);
+                unset($arr);
+            }
+        }
+        
+        $query = $this->db->get('vip_list');
+        $result = [];
+        
+        foreach ($query->result_object() as $row)
+        {
+            $result[] = [
+                $row->name,
+                $row->surname,
+                $row->email,
+            ];
+        }
+
+        echo json_encode([
+            'response' =>  $result
+        ]);
+    }
 }

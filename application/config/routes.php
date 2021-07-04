@@ -61,6 +61,7 @@ $route['api/index'] = 'api/index';
 $route['api/request-jwt'] = 'api/requestJwt';
 $route['api/send-jwt-for-verification'] = 'api/decodeJwt';
 $route['api/api-bearer-verification'] = 'api/apiQueryVerifier';
+$route['api/users-listings'] = 'api/usersLising';
 
 $route['404_override'] = 'welcome/_404';
 $route['translate_uri_dashes'] = FALSE;

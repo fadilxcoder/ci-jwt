@@ -153,6 +153,10 @@ class Api extends CI_Controller {
                     'name' => $users[0],
                     'surname' => $users[1],
                     'email' => $users[2],
+                    'registered_at' => $users[3],
+                    'qa' => $users[4],
+                    'status' => ($users[5] === 'true') ? true : false,
+                    'net_worth' => $users[6],
                 ];
                 $this->db->insert('vip_list', $arr);
                 unset($arr);
@@ -168,6 +172,10 @@ class Api extends CI_Controller {
                 $row->name,
                 $row->surname,
                 $row->email,
+                $row->registered_at,
+                $row->qa,
+                $row->status,
+                $row->net_worth,
             ];
         }
 

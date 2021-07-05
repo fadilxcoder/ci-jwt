@@ -145,11 +145,12 @@ class Api extends CI_Controller {
 
         if(isset($_POST['users']))
         {
-            $this->db->truncate('vip_list');
+            // $this->db->truncate('vip_list');
+            $arr = [];
 
             foreach($_POST['users'] as $users)
             {
-                $arr = [
+                $arr[] = [
                     'name' => $users[0],
                     'surname' => $users[1],
                     'email' => $users[2],
@@ -158,15 +159,18 @@ class Api extends CI_Controller {
                     'status' => ($users[5] === 'true') ? true : false,
                     'net_worth' => $users[6],
                 ];
-                $this->db->insert('vip_list', $arr);
-                unset($arr);
             }
+
+            $this->db->insert('api_users_list', ['data' => json_encode($arr) ]);
         }
+
         
-        $query = $this->db->get('vip_list');
+        
+        $query = $this->db->from('api_users_list')->order_by('id','desc')->limit(1)->get()->row();
+        $response = json_decode($query->data);
         $result = [];
         
-        foreach ($query->result_object() as $row)
+        foreach ($response as $row)
         {
             $result[] = [
                 $row->name,

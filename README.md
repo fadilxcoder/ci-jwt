@@ -30,3 +30,8 @@
 # Heroku Deploy
 
 - Change CI *composer - vendor* (`vendor/autoload.php`) location
+
+# Notes
+
+- Download `cacert.pem` from https://curl.haxx.se/ca/cacert.pem
+- `curl.cainfo="C:\wamp64\cert\cacert.pem"` in php.ini

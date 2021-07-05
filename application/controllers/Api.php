@@ -111,8 +111,11 @@ class Api extends CI_Controller {
 
             // Set up and execute the curl process
             $curl_handle = curl_init();
+            if ($curl_handle === false) {
+                throw new Exception('failed to initialize');
+            }
             curl_setopt($curl_handle, CURLOPT_URL, self::URI_PREFIX . rand(1, 12));
-            curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
             // curl_setopt($curl_handle, CURLOPT_POST, 1);
             // curl_setopt($curl_handle, CURLOPT_POSTFIELDS, array(
             //     'name' => 'name',
@@ -122,9 +125,14 @@ class Api extends CI_Controller {
             // Optional, delete this line if your API is open
             // curl_setopt($curl_handle, CURLOPT_USERPWD, $username . ':' . $password);
 
-            $buffer = curl_exec($curl_handle);
+            $content = curl_exec($curl_handle);
+            
+            if ($content === false) {
+                throw new Exception(curl_error($curl_handle), curl_errno($curl_handle));
+            }
+            
             curl_close($curl_handle);
-            $result = json_decode($buffer);
+            $result = json_decode($content);
             
             echo json_encode([
                 'http_status' => '200',

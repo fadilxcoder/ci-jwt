@@ -1,8 +1,21 @@
-# How to add JWT Authentication to a CodeIgniter 3 REST API
+# JWT Authentication - CodeIgniter 3 REST API
 
-- https://gfx-jwt-api.herokuapp.com/index
-- https://gfx-jwt-api.herokuapp.com/get-token
-- https://gfx-jwt-api.herokuapp.com/verify-token
+```php
+
+# Static app endpoints
+$route['index'] = 'welcome/index';
+$route['get-token'] = 'welcome/generateToken';
+$route['verify-token'] = 'welcome/verifyToken';
+
+# Desktop app endpoint
+$route['api/index'] = 'api/index';
+$route['api/request-jwt'] = 'api/requestJwt';
+$route['api/send-jwt-for-verification'] = 'api/decodeJwt';
+$route['api/api-bearer-verification'] = 'api/apiQueryVerifier';
+$route['api/users-listings'] = 'api/usersLising';
+
+```
+
 - *Resource* : Tutorials (http://developer-city.com/jwt)
 - *Resource* : Verify Signature (https://jwt.io/)
 - *Resource* : PHP Package PHP-JWT (https://firebaseopensource.com/projects/firebase/php-jwt/)

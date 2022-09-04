@@ -1,0 +1,325 @@
+{
+	"info": {
+		"_postman_id": "984e3d07-5bb5-4f09-8012-68e9c00c577a",
+		"name": "CI JWT",
+		"description": "*   [https://fadilxcoder.github.io/jwt-mobile-app/](https://fadilxcoder.github.io/jwt-mobile-app/) (GUI App)\n*   [https://github.com/fadilxcoder/jwt-mobile-app](https://github.com/fadilxcoder/jwt-mobile-app)\n*   [https://github.com/fadilxcoder/ci-jwt](https://github.com/fadilxcoder/ci-jwt) (Gateway)\n*   [https://github.com/fadilxcoder/php-desktop-app](https://github.com/fadilxcoder/php-desktop-app) (Public / Private key, JWT verification, JSpreadsheet)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18647677"
+	},
+	"item": [
+		{
+			"name": "Static App",
+			"item": [
+				{
+					"name": "/get-token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "AUTHORIZATION_GRANT",
+									"value": "ALLOW",
+									"type": "text"
+								},
+								{
+									"key": "var",
+									"value": "mgicuk9pm0s95rjl5zpght",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/ci-jwt-api/get-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ci-jwt-api",
+								"get-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/verify-token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkZXYiOiJmYWRpbEB4Y29kZXIuZHZscHIiLCJ0aW1lU3RhbXAiOiIyMDIxLTEyLTA2IDA2OjU3OjE5IiwidmFyIjoibWdpY3VrOXBtMHM5NXJqbDV6cGdodCJ9.lhU0yMfgsjB3tteivnhV6XisjWu5KLDmU0bCtu1Q4ZazK_3yVTZEQlvgeyeiVlZ6jLRv-cGAqxyLPP7DNizd58fKq7Lj_iv-88Qot6ayqfx5MAFfhLXzZkURSkY2OyHPV_8o3VsUVhWClKYUYGxuBHGoFtAmNLL8KOuB2bMStn8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "AUTHORIZATION_GRANT",
+									"value": "ALLOW",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/ci-jwt-api/verify-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"ci-jwt-api",
+								"verify-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Desktop App",
+			"item": [
+				{
+					"name": "/request-jwt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "request_access",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/request-jwt",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"request-jwt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/send-jwt-for-verification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "signature",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwidW5hbWUiOiJhcGlAY2xpZW50LmF1dGhvcml6ZSIsInJvbGUiOiJhbm9ueW1vdXMifQ.D9E-8C4wL_zbKBQakepUqdqfLQgF3MVXxblXJMsCFDM",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/send-jwt-for-verification",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"send-jwt-for-verification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api-bearer-verification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Testing response HTTP Code\r",
+									"pm.test(\"Testing status code \", function() {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									"\r",
+									"// Testing request headers\r",
+									"var headerArray = ['Authorization'];\r",
+									"headerArray.forEach(function(value) {\r",
+									"    pm.test(value + \" header is present\", () => {\r",
+									"        pm.request.to.have.header(value);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"// Testing response JSON schema\r",
+									"var Ajv = require(\"ajv\");\r",
+									"ajv = new Ajv({\r",
+									"    logger: console\r",
+									"});\r",
+									"schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\": {\r",
+									"        \"http_status\": { \"type\": \"string\" },\r",
+									"        \"refresh_token\": { \"type\": \"string\" },\r",
+									"        \"data\": {\r",
+									"            \"type\": \"object\",\r",
+									"            \"properties\": {\r",
+									"                \"id\": { \"type\": \"integer\" },\r",
+									"                \"email\": { \"type\": \"string\" },\r",
+									"                \"first_name\": { \"type\": \"string\" },\r",
+									"                \"last_name\": { \"type\": \"string\" },\r",
+									"                \"avatar\": { \"type\": \"string\" },\r",
+									"            },\r",
+									"        },\r",
+									"        \"support\": {\r",
+									"            \"type\": \"object\",\r",
+									"            \"properties\": {\r",
+									"                \"url\": { \"type\": \"string\" },\r",
+									"                \"text\": { \"type\": \"string\" },\r",
+									"            },\r",
+									"        }\r",
+									"    },\r",
+									"    'additionalProperties': false,\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Response JSON schema validation\", function() {\r",
+									"    pm.expect(ajv.validate(schema, pm.response.json())).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: pm.collectionVariables.get(\"BASE_URL\") + '/send-jwt-for-verification',\r",
+									"    method: 'POST',\r",
+									"    header: {\r",
+									"        'Authentication': 'fadil@xcoder.developer',\r",
+									"        'X-Client': 'No important headers !',\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'formdata',\r",
+									"        formdata: [\r",
+									"            {\r",
+									"                key: \"signature\",\r",
+									"                value: \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwidW5hbWUiOiJhcGlAY2xpZW50LmF1dGhvcml6ZSIsInJvbGUiOiJhbm9ueW1vdXMifQ.D9E-8C4wL_zbKBQakepUqdqfLQgF3MVXxblXJMsCFDM\"\r",
+									"            }\r",
+									"        ]\r",
+									"    }\r",
+									"}, function(err, response) {\r",
+									"    // console.log(response, response.json());\r",
+									"    if ('OK' === response.status) {\r",
+									"        pm.environment.set(\"responseAuthorization\", response.json().bearer);\r",
+									"    } else {\r",
+									"        console.log(response, err);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpZCI6NywidW5hbWUiOiJmYWRpbEB4Y29kZXIuZGV2ZWxvcGVyIiwicm9sZSI6ImF1dGhvcml6ZWQifQ.YpkP1BdlBkoeNpARdn7r0rAbpDwnd8WiwGqy9IeqaJcWcklqOOYb7Q3c7tprxB3yKNVJILh3RoPRs0WvIfT4m3mGbog85Jxv5zag_Yqn_lQTN25o_u2uI0BXNy4-VUytymMgu4Kfwyrsc_atNUcSH9UgmrgAmIeM7bmgPjB7nzw",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{responseAuthorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api-bearer-verification",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api-bearer-verification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users-listings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpZCI6NywidW5hbWUiOiJmYWRpbEB4Y29kZXIuZGV2ZWxvcGVyIiwicm9sZSI6ImF1dGhvcml6ZWQifQ.YpkP1BdlBkoeNpARdn7r0rAbpDwnd8WiwGqy9IeqaJcWcklqOOYb7Q3c7tprxB3yKNVJILh3RoPRs0WvIfT4m3mGbog85Jxv5zag_Yqn_lQTN25o_u2uI0BXNy4-VUytymMgu4Kfwyrsc_atNUcSH9UgmrgAmIeM7bmgPjB7nzw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "signature",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwidW5hbWUiOiJhcGlAY2xpZW50LmF1dGhvcml6ZSIsInJvbGUiOiJhbm9ueW1vdXMifQ.D9E-8C4wL_zbKBQakepUqdqfLQgF3MVXxblXJMsCFDM",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users-listings",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users-listings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost/ci-jwt-api/api"
+		}
+	]
+}

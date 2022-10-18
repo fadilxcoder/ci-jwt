@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class Api extends CI_Controller {
 
@@ -66,7 +67,7 @@ class Api extends CI_Controller {
         try
         {
             $received_Token = $this->input->post('signature');
-            $jwtData = JWT::decode($received_Token, $this->publicKey, array('HS256'));
+            $jwtData = JWT::decode($received_Token, new Key($this->publicKey, 'HS256'));
 
             if (self::ANONYMOUS !== (array)$jwtData) {
                 http_response_code('401');
@@ -101,7 +102,7 @@ class Api extends CI_Controller {
         
             $authBearer = explode(' ', $authBearer);
             $encContent = $authBearer[1];
-            $decContent = JWT::decode((string)$encContent, $this->publicKey, array('RS256'));
+            $decContent = JWT::decode((string)$encContent, new Key($this->publicKey, 'RS256'));
 
             if (self::AUTHENTICATED !== (array)$decContent) {
                 http_response_code('401');

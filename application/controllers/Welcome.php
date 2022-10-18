@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class Welcome extends CI_Controller {
 
@@ -95,7 +96,7 @@ class Welcome extends CI_Controller {
 
             try
             {
-                $jwtData = JWT::decode($token, $this->publicKey, array('RS256'));
+                $jwtData = JWT::decode($token, new Key($this->publicKey, 'RS256'));
                 
                 echo json_encode([
                     'response' => $jwtData, # Decoded JWT signature to return <dev> & <timeStamp>
